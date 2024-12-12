@@ -53,6 +53,9 @@ vim.api.nvim_create_autocmd('FileType', {
     end
 })
 
+--
+
+
 -- Common keymaps
 vim.keymap.set('i', 'jk', '<Esc>', { noremap = true })
 vim.keymap.set('n', ',<Space>', ':nohlsearch<CR>', { noremap = true })
@@ -60,7 +63,7 @@ vim.keymap.set('n', 'H', 'gT', { noremap = true }) -- Переключение �
 vim.keymap.set('n', 'L', 'gt', { noremap = true })
 vim.keymap.set('n', ',f', ':Telescope find_files<CR>', { noremap = true })
 vim.keymap.set('n', ',g', ':Telescope live_grep<CR>', { noremap = true })
-vim.keymap.set('n', 'gw', ':bd<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'gw', ':bp|bd #<CR>', { noremap = true, silent = true })
 
 -- Plugins with packer.nvim
 require('packer').startup(function(use)
