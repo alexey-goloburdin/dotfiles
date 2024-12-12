@@ -1,0 +1,111 @@
+[general]
+import = [
+    "C:\\Users\\sterx\\AppData\\Roaming\\alacritty\\themes\\themes\\kanagawa_dragon.toml"
+#
+# THEMES:
+#
+# SOFT COLORS:
+#
+# - autumn
+# - citylights
+# - wombat
+# - tomorrow_night
+# - taerminal
+# - remedy_dark
+# - monokai_pro
+# - kanagawa_dragon
+# - kanagawa_wave
+# - everforest_dark
+# - gruvbox_dark
+# - gruvbox_material_hard_dark
+#
+# CONTRAST COLORS:
+#
+# - ayu_dark
+#
+# VIVID:
+#
+# - catppuccin_mocha
+# - enfocado_dark
+# - rose_pine
+# - palenight
+# - night_owl
+#
+# GREY:
+#
+# - doom_one 
+# - nordic
+]
+
+[env]
+TERM = "xterm-256color"
+COLORTERM = "truecolor"
+LANG = "en_US.UTF-8"
+
+[font]
+size = 12
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "N"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0015"
+key = "Back"
+mods = "Super"
+
+[[keyboard.bindings]]
+chars = "\u001Bb"
+key = "Left"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bf"
+key = "Right"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u0000"
+key = "Space"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001BOH"
+key = "Left"
+mode = "AppCursor"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u001BOF"
+key = "Right"
+mode = "AppCursor"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u001BR"
+key = "R"
+mods = "Command"
+
+[window]
+decorations = "None"
+dynamic_padding = true
+opacity = 1
+startup_mode = "Maximized"
+
+[window.padding]
+x = 15
+y = 15
+
+[terminal.shell]
+program = "wsl"
+args = [
+    "-d",
+    "Debian",
+    "--cd",
+    "~"
+]
