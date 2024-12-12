@@ -5,12 +5,13 @@ Install:
 ```bash
 sudo apt install -y git curl wget tmux gcc ripgrep fzf build-essential
 
-echo "alias n=nvim" >> ~/.zshrc && . ~/.zshrc
-echo "export EDITOR=vim" >> ~/.zshrc && . ~/.zshrc
-
 # Alacritty themes
 mkdir -p ~/.config/alacritty/themes
 git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+
+# zsh settings
+echo "source \$HOME/.config/zsh/env.zsh" >> ~/.zshrc
+echo "source \$HOME/.config/zsh/aliases.zsh" >> ~/.zshrc
 
 # Install nodejs and pyright LSP server for Python
 # https://nodejs.org/en/download/package-manager
