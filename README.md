@@ -3,9 +3,7 @@ My dot files for `~/.config` directory — nvim, tmux, alacritty etc.
 Install:
 
 ```bash
-sudo apt install -y \
-    git \
-    curl wget tmux gcc ripgrep fzf build-essential
+sudo apt install -y git curl wget tmux gcc ripgrep fzf build-essential
 
 echo "alias n=nvim" >> ~/.zshrc && . ~/.zshrc
 echo "export EDITOR=vim" >> ~/.zshrc && . ~/.zshrc
