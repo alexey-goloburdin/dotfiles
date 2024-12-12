@@ -8,6 +8,10 @@ sudo apt install -y git curl wget tmux gcc ripgrep fzf build-essential
 echo "alias n=nvim" >> ~/.zshrc && . ~/.zshrc
 echo "export EDITOR=vim" >> ~/.zshrc && . ~/.zshrc
 
+# Alacritty themes
+mkdir -p ~/.config/alacritty/themes
+git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+
 # Install nodejs and pyright LSP server for Python
 # https://nodejs.org/en/download/package-manager
 # choose linux and nvm
@@ -29,7 +33,7 @@ mkdir -p ~/.local/share/nvim/site/pack/packer/start/
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-# Build telescope
+# Build telescope for nvim
 cd ~/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim
 make
 ```
