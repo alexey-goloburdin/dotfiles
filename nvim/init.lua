@@ -189,8 +189,8 @@ require('auto-save').setup()
 vim.g.clipboard = {
   name = 'win32yank',
   copy = {
-    ['+'] = 'clip.exe',
-    ['*'] = 'clip.exe',
+    ['+'] = 'win32yank.exe -i',
+    ['*'] = 'win32yank.exe -i',
   },
   paste = {
     ['+'] = 'powershell -noprofile -command "Get-Clipboard"',
