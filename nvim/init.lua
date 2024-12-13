@@ -173,6 +173,38 @@ lspconfig.ts_ls.setup({
     on_attach = on_attach,
 })
 
+-- Пример настройки LSP для Go
+lspconfig.gopls.setup({
+    cmd = { "gopls" }, -- Убедитесь, что `gopls` доступен в PATH
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            staticcheck = true,
+        },
+    },
+})
+
+-- Пример настройки LSP для Rust
+lspconfig.rust_analyzer.setup({
+    cmd = { "rust-analyzer" }, -- Убедитесь, что `rust-analyzer` доступен в PATH
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            cargo = {
+                allFeatures = true,
+            },
+            procMacro = {
+                enable = true,
+            },
+        },
+    },
+})
+
 -- Null-ls для Prettier
 require('null-ls').setup({
     sources = {
