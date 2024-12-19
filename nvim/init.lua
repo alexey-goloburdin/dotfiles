@@ -1,15 +1,9 @@
-vim.cmd([[
-  highlight Normal guibg=NONE ctermbg=NONE
-  highlight NonText guibg=NONE ctermbg=NONE
-  highlight LineNr guibg=NONE ctermbg=NONE
-  highlight EndOfBuffer guibg=NONE ctermbg=NONE
-]])
 
 vim.opt.mouse = "a" -- Enable mouse support
 vim.opt.encoding = "utf-8"       -- Общая кодировка (необязательно, по умолчанию UTF-8)
 vim.opt.fileencoding = "utf-8"  -- Кодировка файлов
 vim.opt.number = true -- Show line numbers
-vim.opt.cursorline = true -- Highlight current cursor's line
+vim.opt.cursorline = false -- Disable highlight current cursor's line
 vim.opt.swapfile = false -- Disable .swp files 
 vim.opt.scrolloff = 7 -- Number of lines left visible above/below the cursor when scrolling
 vim.opt.tabstop = 4 -- Spaces instead of one tab
@@ -259,4 +253,11 @@ cmp.setup({
     }),
 })
 
+-- transparent bg — remove if you want
+vim.cmd([[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+  highlight LineNr guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+]])
 
