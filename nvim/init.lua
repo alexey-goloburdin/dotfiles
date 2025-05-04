@@ -1,4 +1,3 @@
-
 vim.opt.mouse = "a" -- Enable mouse support
 vim.opt.encoding = "utf-8"       -- Общая кодировка (необязательно, по умолчанию UTF-8)
 vim.opt.fileencoding = "utf-8"  -- Кодировка файлов
@@ -69,7 +68,21 @@ require('packer').startup(function(use)
     use 'hrsh7th/nvim-cmp' -- Autocomplete
     use 'hrsh7th/cmp-nvim-lsp'
     use 'saadparwaiz1/cmp_luasnip'
-    use 'L3MON4D3/LuaSnip' -- Сниппеты
+    use {
+        'L3MON4D3/LuaSnip', -- Сниппеты
+        requires = { 'rafamadriz/friendly-snippets' },
+        config = function()
+            local luasnip = require("luasnip")
+
+            -- 1) Подхватываем все сниппеты из friendly-snippets
+            require("luasnip.loaders.from_vscode").lazy_load()
+
+            -- 2) Подхватываем ваши локальные сниппеты
+            require("luasnip.loaders.from_vscode").lazy_load({
+              paths = { vim.fn.stdpath("config") .. "/snippets" }
+            })
+        end,
+    }
     use 'nvim-treesitter/nvim-treesitter' -- Подсветка синтаксиса
 
     use 'morhetz/gruvbox' -- Color schemes
@@ -229,12 +242,12 @@ vim.g.clipboard = {
 }
 
 -- Autocomplete settings
-local cmp = require('cmp')
 local luasnip = require('luasnip')
+local cmp = require('cmp')
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      luasnip.lsp_expand(args.body) -- tell nvim-cmp to use LuaSnip
     end,
   },
   completion = {

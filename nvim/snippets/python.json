@@ -1,0 +1,10 @@
+{
+  "Print to console": {
+    "prefix": "pp",
+    "body": [
+      "print(\"${1:Hello, world!}\")",
+      "$0"
+    ],
+    "description": "Print a message to console"
+  }
+}
