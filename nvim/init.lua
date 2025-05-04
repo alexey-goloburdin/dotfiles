@@ -63,26 +63,38 @@ require('packer').startup(function(use)
 
     use 'wbthomason/packer.nvim'
 
+    use {
+      'L3MON4D3/LuaSnip',
+      config = function()
+        local ls = require("luasnip")
+        local snip_path = vim.fn.stdpath("config") .. "/snippets"
+        require("luasnip.loaders.from_lua").lazy_load({ paths = snip_path })
+
+
+        -- ваши маппинги для expand/jump
+        vim.keymap.set({'i','s'}, '<Tab>', function()
+          if ls.expand_or_jumpable() then
+            ls.expand_or_jump()
+          else
+            return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
+          end
+        end, {expr = true, silent = true})
+        vim.keymap.set({'i','s'}, '<S-Tab>', function()
+          if ls.jumpable(-1) then
+            ls.jump(-1)
+          else
+            return vim.api.nvim_replace_termcodes("<S-Tab>", true, true, true)
+          end
+        end, {expr = true, silent = true})
+      end
+    }
+
+
     use 'nvim-lua/plenary.nvim' -- For Telescope plugin
     use 'neovim/nvim-lspconfig' -- LSP
     use 'hrsh7th/nvim-cmp' -- Autocomplete
     use 'hrsh7th/cmp-nvim-lsp'
     use 'saadparwaiz1/cmp_luasnip'
-    use {
-        'L3MON4D3/LuaSnip', -- Сниппеты
-        requires = { 'rafamadriz/friendly-snippets' },
-        config = function()
-            local luasnip = require("luasnip")
-
-            -- 1) Подхватываем все сниппеты из friendly-snippets
-            require("luasnip.loaders.from_vscode").lazy_load()
-
-            -- 2) Подхватываем ваши локальные сниппеты
-            require("luasnip.loaders.from_vscode").lazy_load({
-              paths = { vim.fn.stdpath("config") .. "/snippets" }
-            })
-        end,
-    }
     use 'nvim-treesitter/nvim-treesitter' -- Подсветка синтаксиса
 
     use 'morhetz/gruvbox' -- Color schemes
@@ -242,14 +254,8 @@ vim.g.clipboard = {
 }
 
 -- Autocomplete settings
-local luasnip = require('luasnip')
 local cmp = require('cmp')
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body) -- tell nvim-cmp to use LuaSnip
-    end,
-  },
   completion = {
     autocomplete = false, -- Отключить автоматическое появление
   },
@@ -262,7 +268,6 @@ cmp.setup({
   },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },  -- Источник из LSP
-        { name = 'luasnip' },  -- Источник для сниппетов
     }),
 })
 
@@ -273,4 +278,24 @@ vim.cmd([[
   highlight LineNr guibg=NONE ctermbg=NONE
   highlight EndOfBuffer guibg=NONE ctermbg=NONE
 ]])
+
+
+vim.keymap.set({"i", "s"}, "<C-k>", function()
+  local ls = require("luasnip")
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  end
+end, { silent = true })
+
+vim.keymap.set({"i", "s"}, "<C-j>", function()
+  local ls = require("luasnip")
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  end
+end, { silent = true })
+
+require("luasnip").config.set_config {
+  history = true,
+  updateevents = "TextChanged,TextChangedI"
+}
 
