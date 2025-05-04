@@ -24,7 +24,10 @@ return {
     t('webhook_url = "'), i(1, "/webhook-path"), t({'"', "message = str("}),
     i(2, "logging_object"),
     t({")",
-       '__import__("tests.lib.log").log(f"Traceback:\\n\\n{__import__(\'traceback\').format_exc()}\\n\\nMessage:\\n\\n{message}", "{webhook_url}")'
+       "from tests.lib.log import log",
+       "import traceback",
+       "formatted_traceback = traceback.format_exc()",
+       'log(f"Traceback:\\n\\n{formatted_traceback}\\n\\nMessage:\\n\\n{message}", webhook_url)'
     })
   }),
 }
