@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = 'python',
     callback = function()
 
-        vim.opt.colorcolumn = '88'
+        vim.opt.colorcolumn = '80'
         vim.keymap.set('n', '<C-h>', ':w<CR>:!python3 %<CR>', { buffer = true, silent = true })
         vim.keymap.set('i', '<C-h>', '<Esc>:w<CR>:!python3 %<CR>', { buffer = true, silent = true })
     end
@@ -136,6 +136,8 @@ require('packer').startup(function(use)
     use 'nvim-telescope/telescope-fzf-native.nvim'
     use 'Pocco81/auto-save.nvim' -- Автосохранение
     use 'jose-elias-alvarez/null-ls.nvim' -- Форматирование и линтинг
+
+     use {'kaarmu/typst.vim', ft = {'typst'}} -- typst
 end)
 
 -- Color scheme
@@ -289,4 +291,54 @@ require("luasnip").config.set_config {
   history = true,
   updateevents = "TextChanged,TextChangedI"
 }
+
+-- highlight inline code blocks in markdown
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "python", "bash", "markdown", "markdown_inline" },
+  highlight = {
+    enable = true,
+    disable = { "markdown" },
+  },
+}
+vim.g.markdown_fenced_languages = {
+  "python",
+  "bash=sh",
+  "shell=sh",
+}
+
+
+-- Выделение текста между двумя блоками ``` ... ```
+local function set_triple_backtick_region()
+  -- ищем предыдущий ```
+  local start_line = vim.fn.search("```", "bW")
+  if start_line == 0 then
+    return
+  end
+
+  -- ищем следующий ```
+  local end_line = vim.fn.search("```", "W")
+  if end_line == 0 or end_line <= start_line + 1 then
+    return
+  end
+
+  -- хотим выделять строки МЕЖДУ ними
+  local inner_start = start_line + 1
+  local inner_end = end_line - 1
+
+  -- ставим marks для visual-выделения
+  vim.fn.setpos("'<", {0, inner_start, 1, 0})
+  vim.fn.setpos("'>", {0, inner_end, 999, 0})
+end
+
+-- Visual-mode: когда уже есть оператор v (например, ты нажал просто v и затем i`)
+vim.keymap.set("x", "i`", function()
+  set_triple_backtick_region()
+  vim.cmd("normal! gv")
+end, { noremap = true, silent = true })
+
+-- Operator-pending: di`, ci`, yi`, vi`
+vim.keymap.set("o", "i`", function()
+  set_triple_backtick_region()
+  return "gv"
+end, { noremap = true, silent = true, expr = true })
 
