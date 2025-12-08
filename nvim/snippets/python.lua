@@ -19,6 +19,11 @@ return {
     t('__import__("pprint").pprint('), i(1, 'obj'), t(")")
   }),
 
+  -- logger
+  s("logger", {
+    t({"logger = logging.getLogger(__name__)", ""})
+  }),
+
   -- log to webhook
   s("wlog", {
     t('webhook_url = "'), i(1, "/webhook-path"), t({'"', "message = str("}),
@@ -29,6 +34,11 @@ return {
        "formatted_traceback = traceback.format_exc()",
        'log(f"Traceback:\\n\\n{formatted_traceback}\\n\\nMessage:\\n\\n{message}", webhook_url)'
     })
+  }),
+
+  -- if __name__ == "__main__":
+  s("__", {
+    t('if __name__ == "__main__":'), t({"", "\t"}), i(1, "main()")
   }),
 }
 
