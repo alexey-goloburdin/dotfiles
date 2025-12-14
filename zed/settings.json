@@ -1,0 +1,116 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "window_decorations": "client",
+  "bottom_dock_layout": "contained",
+  "debugger": {
+    "button": true
+  },
+  "scrollbar": {
+    "show": "auto",
+    "diagnostics": "all",
+    "axes": {
+      "vertical": true,
+      "horizontal": true
+    },
+    "selected_symbol": true,
+    "selected_text": true,
+    "search_results": true,
+    "git_diff": true,
+    "cursors": true
+  },
+  "inline_code_actions": false,
+  "gutter": {
+    "folds": true,
+    "breakpoints": true,
+    "runnables": true,
+    "line_numbers": true
+  },
+  "show_wrap_guides": true,
+  "selection_highlight": true,
+  "rounded_selection": true,
+  "cursor_shape": "bar",
+  "search": {
+    "button": true
+  },
+  "diagnostics": {
+    "button": true
+  },
+  "terminal": {
+    "button": false
+  },
+  "status_bar": {
+    "cursor_position_button": true,
+    "active_language_button": false
+  },
+  "zoomed_padding": true,
+  "active_pane_modifiers": {
+    "inactive_opacity": 1.0
+  },
+  "use_system_window_tabs": false,
+  "preview_tabs": {
+    "enable_preview_from_file_finder": false,
+    "enabled": true
+  },
+  "tabs": {
+    "file_icons": false,
+    "git_status": false
+  },
+  "tab_bar": {
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false,
+    "show": true
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_sign_in": false,
+    "show_user_picture": true,
+    "show_onboarding_banner": true,
+    "show_project_items": false,
+    "show_branch_name": true,
+    "show_branch_icon": false
+  },
+  "project_panel": {
+    "sticky_scroll": true,
+    "auto_fold_dirs": true,
+    "starts_open": true,
+    "auto_reveal_entries": true,
+    "git_status": true,
+    "folder_icons": true,
+    "file_icons": true,
+    "hide_gitignore": true,
+    "button": true
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 500
+    }
+  },
+  "buffer_line_height": "comfortable",
+  "buffer_font_weight": 400.0,
+  "wsl_connections": [
+    {
+      "distro_name": "Debian",
+      "user": null,
+      "projects": []
+    }
+  ],
+  "vim_mode": true,
+  "ui_font_size": 15.0,
+  "buffer_font_size": 14.0,
+  "theme": {
+    "mode": "system",
+    "light": "Kanagawa Dragon - No Italics",
+    "dark": "Kanagawa Dragon - No Italics"
+  },
+  "git": { "inline_blame": {
+                "enabled": false
+           },
+           "git_gutter": "hide" }
+}
