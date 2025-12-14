@@ -133,11 +133,12 @@ require('packer').startup(function(use)
     }
 
     use 'nvim-telescope/telescope.nvim'
-    use 'nvim-telescope/telescope-fzf-native.nvim'
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
     use 'Pocco81/auto-save.nvim' -- Автосохранение
     use 'jose-elias-alvarez/null-ls.nvim' -- Форматирование и линтинг
 
-     use {'kaarmu/typst.vim', ft = {'typst'}} -- typst
+    use {'kaarmu/typst.vim', ft = {'typst'}} -- typst
 end)
 
 -- Color scheme
@@ -145,7 +146,6 @@ end)
 vim.cmd([[colorscheme kanagawa-dragon]]) -- kanagawa-wave, kanagawa-dragon, kanagawa-lotus
 
 -- LSP
-local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local on_attach = function(client, bufnr)
 
@@ -170,7 +170,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Настройка LSP для Python (Pyright)
-lspconfig.pyright.setup({
+vim.lsp.config("pyright", {
     capabilities = capabilities,
     on_attach = on_attach,
     settings = {
@@ -183,15 +183,17 @@ lspconfig.pyright.setup({
         },
     },
 })
+vim.lsp.enable("pyright")
 
 -- Пример настройки LSP для TypeScript
-lspconfig.ts_ls.setup({
+vim.lsp.config("ts_ls", {
     capabilities = capabilities,
     on_attach = on_attach,
 })
+vim.lsp.enable("ts_ls")
 
 -- Пример настройки LSP для Go
-lspconfig.gopls.setup({
+vim.lsp.config("gopls", {
     cmd = { "gopls" }, -- Убедитесь, что `gopls` доступен в PATH
     on_attach = on_attach,
     capabilities = capabilities,
@@ -204,9 +206,10 @@ lspconfig.gopls.setup({
         },
     },
 })
+vim.lsp.enable("gopls")
 
 -- Пример настройки LSP для Rust
-lspconfig.rust_analyzer.setup({
+vim.lsp.config("rust_analyzer", {
     cmd = { "rust-analyzer" }, -- Убедитесь, что `rust-analyzer` доступен в PATH
     on_attach = on_attach,
     capabilities = capabilities,
@@ -221,6 +224,7 @@ lspconfig.rust_analyzer.setup({
         },
     },
 })
+vim.lsp.enable("rust_analyzer")
 
 -- Null-ls для Prettier
 require('null-ls').setup({
@@ -240,7 +244,8 @@ require('telescope').setup({
     },
   },
 })
-require('telescope').load_extension('fzf')
+pcall(require('telescope').load_extension, 'fzf')
+
 
 -- Auto-save
 require('auto-save').setup()
@@ -341,4 +346,3 @@ vim.keymap.set("o", "i`", function()
   set_triple_backtick_region()
   return "gv"
 end, { noremap = true, silent = true, expr = true })
-
