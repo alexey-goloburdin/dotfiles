@@ -136,7 +136,7 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     use 'Pocco81/auto-save.nvim' -- Автосохранение
-    use 'jose-elias-alvarez/null-ls.nvim' -- Форматирование и линтинг
+    use 'nvimtools/none-ls.nvim'
 
     use {'kaarmu/typst.vim', ft = {'typst'}} -- typst
 end)
@@ -346,3 +346,13 @@ vim.keymap.set("o", "i`", function()
   set_triple_backtick_region()
   return "gv"
 end, { noremap = true, silent = true, expr = true })
+
+-- :ruff command
+vim.api.nvim_create_user_command("Ruff", function()
+  local filepath = vim.fn.expand("%:p")
+  vim.cmd("write")
+  vim.fn.system("ruff format " .. filepath)
+  vim.fn.system("ruff check --fix " .. filepath)
+  vim.cmd("edit")
+end, {})
+vim.keymap.set("n", "<leader>rf", "<cmd>Ruff<cr>", { desc = "Ruff format & fix" })
