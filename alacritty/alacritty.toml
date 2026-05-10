@@ -94,11 +94,18 @@ chars = "\u001BR"
 key = "R"
 mods = "Command"
 
+[[keyboard.bindings]]
+key = "Space"
+mods = "Super"
+action = "None"
+
 [window]
-decorations = "None"
+decorations = "none"
 dynamic_padding = true
 opacity = 1
 startup_mode = "Maximized"
+#startup_mode = "Windowed"
+#dimensions = { columns = 100, lines = 40 }
 
 [window.padding]
 x = 15
@@ -112,3 +119,4 @@ args = [
     "--cd",
     "~"
 ]
+
