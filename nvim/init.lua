@@ -16,6 +16,7 @@ vim.opt.splitbelow = true -- horizontal split open below and right
 vim.opt.splitright = true
 vim.g.mapleader = ',' -- Leader key
 vim.opt.termguicolors = true -- 24-bit colors
+vim.opt.scrolloff = 0
 
 -- Keymaps for programming languages
 vim.api.nvim_create_autocmd('FileType', {
