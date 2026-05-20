@@ -1,3 +1,5 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.opt.mouse = "a" -- Enable mouse support
 vim.opt.encoding = "utf-8"       -- Общая кодировка (необязательно, по умолчанию UTF-8)
 vim.opt.fileencoding = "utf-8"  -- Кодировка файлов
@@ -140,6 +142,22 @@ require('packer').startup(function(use)
     use 'nvimtools/none-ls.nvim'
 
     use {'kaarmu/typst.vim', ft = {'typst'}} -- typst
+
+    use {
+      "stevearc/oil.nvim",
+      config = function()
+        local oil = require("oil")
+
+        oil.setup({
+          keymaps = {
+            ["t"] = {
+              "actions.select",
+              opts = { tab = true },
+            },
+          },
+        })
+      end
+    }
 end)
 
 -- Color scheme
