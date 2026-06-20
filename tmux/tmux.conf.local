@@ -516,3 +516,7 @@ tmux_conf_24b_colour=true
 %if #{>=:#{version},3.2}
 tmux_conf_theme_pane_active_border="#{?pane_in_mode,$tmux_conf_theme_colour_9,#{?synchronize-panes,$tmux_conf_theme_colour_16,$tmux_conf_theme_colour_2}}"
 %endif
+
+# for pi harness
+set -g extended-keys on
+

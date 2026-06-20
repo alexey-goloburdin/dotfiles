@@ -27,8 +27,8 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function()
 
         vim.opt.colorcolumn = '80'
-        vim.keymap.set('n', '<C-h>', ':w<CR>:!python3 %<CR>', { buffer = true, silent = true })
-        vim.keymap.set('i', '<C-h>', '<Esc>:w<CR>:!python3 %<CR>', { buffer = true, silent = true })
+        vim.keymap.set('n', '<C-h>', ':w<CR>:!python3.13 %<CR>', { buffer = true, silent = true })
+        vim.keymap.set('i', '<C-h>', '<Esc>:w<CR>:!python3.13 %<CR>', { buffer = true, silent = true })
     end
 })
 
@@ -375,3 +375,12 @@ vim.api.nvim_create_user_command("Ruff", function()
   vim.cmd("edit")
 end, {})
 vim.keymap.set("n", "<leader>rf", "<cmd>Ruff<cr>", { desc = "Ruff format & fix" })
+
+-- jsonl as json files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.jsonl",
+  callback = function(args)
+    vim.bo[args.buf].filetype = "json"
+  end,
+})
+
