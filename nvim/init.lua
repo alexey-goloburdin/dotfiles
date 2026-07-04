@@ -373,15 +373,51 @@ vim.keymap.set("o", "i`", function()
   return "gv"
 end, { noremap = true, silent = true, expr = true })
 
--- :ruff command
+-- Ruff format for Python files
+local ruff_group = vim.api.nvim_create_augroup("RuffFormat", { clear = true })
+
+local function ruff_format_file(filepath)
+  if filepath == "" then
+    return false
+  end
+
+  -- Вызов списком безопаснее, чем строкой:
+  -- не ломается на пробелах и спецсимволах в пути.
+  vim.fn.system({ "ruff", "format", filepath })
+
+  if vim.v.shell_error ~= 0 then
+    vim.notify("ruff format failed for " .. filepath, vim.log.levels.ERROR)
+    return false
+  end
+
+  return true
+end
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = ruff_group,
+  pattern = "*.py",
+  callback = function(args)
+    local filepath = vim.api.nvim_buf_get_name(args.buf)
+
+    if not ruff_format_file(filepath) then
+      return
+    end
+
+    -- ruff изменил файл на диске, перечитываем его в текущий буфер.
+    vim.cmd("silent! edit!")
+  end,
+})
+
+-- :Ruff command
 vim.api.nvim_create_user_command("Ruff", function()
   local filepath = vim.fn.expand("%:p")
   vim.cmd("write")
-  vim.fn.system("ruff format " .. filepath)
-  vim.fn.system("ruff check --fix " .. filepath)
-  vim.cmd("edit")
+
+  if ruff_format_file(filepath) then
+      vim.cmd("silent! edit!")
+  end
 end, {})
-vim.keymap.set("n", "<leader>rf", "<cmd>Ruff<cr>", { desc = "Ruff format & fix" })
+vim.keymap.set("n", "<leader>rf", "<cmd>Ruff<cr>", { desc = "Ruff format" })
 
 -- jsonl as json files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -390,4 +426,5 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo[args.buf].filetype = "json"
   end,
 })
+
 
