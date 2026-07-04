@@ -158,6 +158,13 @@ require('packer').startup(function(use)
         })
       end
     }
+
+    use {
+      "nvim-mini/mini.surround",
+      config = function()
+        require("mini.surround").setup()
+      end
+    }
 end)
 
 -- Color scheme
