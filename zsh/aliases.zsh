@@ -1,4 +1,5 @@
 alias n=nvim
+alias b=bat
 alias open=explorer.exe
 #alias pbcopy="win32yank.exe -i"
 
